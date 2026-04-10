@@ -31,7 +31,7 @@ load_dotenv()
 CORS_ALLOW_ORIGINS = [
     "http://localhost:3000",
     "http://127.0.0.1:3000",
-    "https://databrix.vercel.app",
+    "https://databrix-ai-analyst.vercel.app",
 ]
 _extra = os.getenv("CORS_ALLOW_ORIGINS", "").strip()
 if _extra:
