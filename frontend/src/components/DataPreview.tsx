@@ -41,7 +41,7 @@ interface DataPreviewProps {
   preview: DataPreviewType;
   filename: string;
   report?: ReportData | null;
-  charts?: any[];
+  charts?: string[];
   compact?: boolean;
   onDownload?: () => void;
   onExpand?: () => void;
@@ -56,34 +56,32 @@ export default function DataPreview({
   charts = [],
   compact = false,
   onDownload,
-  onExpand,
   onExplainData,
   defaultTab,
 }: DataPreviewProps) {
   const [activeTab, setActiveTab] = useState<"report" | "chart" | "file">(defaultTab || "file");
-
-  console.log("[DataPreview] Render:", {
-    hasReport: !!report,
-    reportTitle: report?.title,
-    reportKpis: report?.kpis?.length,
-    chartsCount: charts.length,
-    defaultTab,
-    activeTab
-  });
+  
+  // Track previous report/charts to avoid redundant state updates in effect
+  const prevReportRef = useRef<ReportData | null | undefined>(report);
+  const prevChartsCountRef = useRef<number>(charts.length);
+  const prevDefaultTabRef = useRef<typeof defaultTab>(defaultTab);
 
   // Switch to report tab automatically if a new report arrives or defaultTab changes
   useEffect(() => {
-    console.log("[DataPreview] useEffect triggered:", { defaultTab, hasReport: !!report, chartsCount: charts.length });
-    if (defaultTab) {
-      console.log("[DataPreview] Setting tab to defaultTab:", defaultTab);
-      setActiveTab(defaultTab);
-    } else if (report) {
-      console.log("[DataPreview] Setting tab to report");
-      setActiveTab("report");
-    } else if (charts.length > 0) {
-      // setActiveTab("chart"); 
+    const isNewReport = report && report !== prevReportRef.current;
+    const isNewCharts = charts.length > prevChartsCountRef.current;
+    const isNewDefaultTab = defaultTab !== prevDefaultTabRef.current;
+
+    if (isNewDefaultTab && defaultTab) {
+      setTimeout(() => setActiveTab(defaultTab), 0);
+    } else if (isNewReport) {
+      setTimeout(() => setActiveTab("report"), 0);
     }
-  }, [report, charts, defaultTab]);
+
+    prevReportRef.current = report;
+    prevChartsCountRef.current = charts.length;
+    prevDefaultTabRef.current = defaultTab;
+  }, [report, charts.length, defaultTab]);
 
   if (!preview) return null;
 
@@ -270,13 +268,13 @@ function TabButton({ active, onClick, icon, label }: { active: boolean, onClick:
   );
 }
 
-function ReportView({ report, charts = [] }: { report: ReportData, charts?: any[] }) {
+function ReportView({ report, charts = [] }: { report: ReportData, charts?: string[] }) {
   const [expandedChart, setExpandedChart] = useState<number | null>(null);
   const [visibleCharts, setVisibleCharts] = useState<Set<number>>(new Set(charts.map((_, i) => i)));
   const [isExporting, setIsExporting] = useState(false);
   const reportRef = useRef<HTMLDivElement>(null);
 
-  const handleDownload = (chartData: any, title: string) => {
+  const handleDownload = (chartData: string, title: string) => {
     const dataStr = JSON.stringify(chartData, null, 2);
     const blob = new Blob([dataStr], { type: 'application/json' });
     const url = URL.createObjectURL(blob);
@@ -912,7 +910,7 @@ function ReportView({ report, charts = [] }: { report: ReportData, charts?: any[
             </div>
             {report.rows.length > 10 && (
               <p data-pdf-muted="true" className="text-center text-[10px] text-slate-400 font-bold uppercase tracking-widest pt-2">
-                Showing top 10 of {report.rows.length} records. See 'File' tab for complete dataset.
+                Showing top 10 of {report.rows.length} records. See &apos;File&apos; tab for complete dataset.
               </p>
             )}
           </section>

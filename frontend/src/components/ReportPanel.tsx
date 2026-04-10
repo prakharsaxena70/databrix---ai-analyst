@@ -383,7 +383,7 @@ function parseReportContent(content: string) {
 }
 
 // Custom markdown components with white text
-const MarkdownComponents: any = {
+const MarkdownComponents: Record<string, React.FC<{ children: React.ReactNode }>> = {
   h1: ({ children }: { children: React.ReactNode }) => (
     <h1 className="text-xl font-black text-white mt-4 mb-3">{children}</h1>
   ),

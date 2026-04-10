@@ -3,7 +3,6 @@
 import { SessionData, User } from "@/lib/types";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Separator } from "@/components/ui/separator";
-import { Badge } from "@/components/ui/badge";
 import {
   FileSpreadsheet,
   Database,
@@ -20,8 +19,6 @@ import {
   Edit2,
   User as UserIcon,
   Sparkles,
-  Crown,
-  Zap,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { 
@@ -39,13 +36,11 @@ import { cn } from "@/lib/utils";
 interface SidebarProps {
   sessions: SessionData[];
   activeSessionId: string | null;
-  onSelectSession: (id: string) => void;
   onUpdateSession: (id: string, updates: { nickname?: string; is_starred?: boolean }) => void;
   onDeleteSession: (id: string) => void;
   onNewChat: () => void;
   isOpen: boolean;
   onToggle: () => void;
-  onShowPricing: () => void;
   onShowTools: () => void;
   onShowDataSources: () => void;
   user: User | null;
@@ -80,13 +75,11 @@ function getInitials(name: string): string {
 export default function Sidebar({
   sessions,
   activeSessionId,
-  onSelectSession,
   onUpdateSession,
   onDeleteSession,
   onNewChat,
   isOpen,
   onToggle,
-  onShowPricing,
   onShowTools,
   onShowDataSources,
   user,
@@ -94,7 +87,6 @@ export default function Sidebar({
   isAuthenticated,
 }: SidebarProps) {
   const [searchQuery, setSearchQuery] = useState("");
-  const router = useRouter();
 
   const filteredSessions = sessions.filter(s => 
     s.filename.toLowerCase().includes(searchQuery.toLowerCase())
@@ -233,7 +225,7 @@ export default function Sidebar({
                     {s.is_starred && <Star className="h-3.5 w-3.5 fill-amber-400 text-amber-400 shrink-0" />}
                     
                     <DropdownMenu>
-                      <DropdownMenuTrigger asChild onClick={(ev: any) => ev.stopPropagation()}>
+                      <DropdownMenuTrigger asChild onClick={(ev: React.MouseEvent) => ev.stopPropagation()}>
                         <Button variant="ghost" size="sm" className="h-7 w-7 p-0 opacity-0 group-hover:opacity-100 text-slate-500 hover:text-white hover:bg-white/10 rounded-lg">
                            <MoreVertical className="h-3.5 w-3.5" />
                         </Button>

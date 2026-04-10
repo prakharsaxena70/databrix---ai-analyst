@@ -1,0 +1,114 @@
+﻿
+> frontend@0.1.0 lint
+> eslint
+
+
+C:\Users\ASUS\OneDrive\Desktop\AI ANALYST\frontend\src\app\app\data-sources\page.tsx
+  21:3  warning  'Star' is defined but never used          @typescript-eslint/no-unused-vars
+  22:3  warning  'MoreVertical' is defined but never used  @typescript-eslint/no-unused-vars
+
+C:\Users\ASUS\OneDrive\Desktop\AI ANALYST\frontend\src\app\app\layout.tsx
+  3:31  warning  'useCallback' is defined but never used  @typescript-eslint/no-unused-vars
+
+C:\Users\ASUS\OneDrive\Desktop\AI ANALYST\frontend\src\app\app\page.tsx
+  7:10  warning  'cn' is defined but never used  @typescript-eslint/no-unused-vars
+
+C:\Users\ASUS\OneDrive\Desktop\AI ANALYST\frontend\src\app\app\tools\page.tsx
+    9:3   warning  'Table' is defined but never used                                                                            @typescript-eslint/no-unused-vars
+   13:3   warning  'Download' is defined but never used                                                                         @typescript-eslint/no-unused-vars
+  104:11  warning  Image elements must have an alt prop, either with meaningful text, or an empty string for decorative images  jsx-a11y/alt-text
+  198:9   warning  'fileInputRef' is assigned a value but never used                                                            @typescript-eslint/no-unused-vars
+
+C:\Users\ASUS\OneDrive\Desktop\AI ANALYST\frontend\src\app\auth\login\page.tsx
+  10:10  warning  'cn' is defined but never used   @typescript-eslint/no-unused-vars
+  46:14  warning  'err' is defined but never used  @typescript-eslint/no-unused-vars
+
+C:\Users\ASUS\OneDrive\Desktop\AI ANALYST\frontend\src\app\page.tsx
+  10:3   warning  'CheckCircle2' is defined but never used   @typescript-eslint/no-unused-vars
+  12:3   warning  'Crown' is defined but never used          @typescript-eslint/no-unused-vars
+  23:12  warning  'GlobeIcon' is defined but never used      @typescript-eslint/no-unused-vars
+  24:3   warning  'MessageCircle' is defined but never used  @typescript-eslint/no-unused-vars
+  25:3   warning  'Share2' is defined but never used         @typescript-eslint/no-unused-vars
+
+C:\Users\ASUS\OneDrive\Desktop\AI ANALYST\frontend\src\components\AuthProvider.tsx
+  5:86  warning  'getToken' is defined but never used  @typescript-eslint/no-unused-vars
+
+C:\Users\ASUS\OneDrive\Desktop\AI ANALYST\frontend\src\components\ChatInterface.tsx
+    4:32  warning  'ChatLoadingSkeleton' is defined but never used                                                                                                                                          @typescript-eslint/no-unused-vars
+   13:3   warning  'CheckCircle2' is defined but never used                                                                                                                                                 @typescript-eslint/no-unused-vars
+   41:3   warning  'isThinking' is assigned a value but never used                                                                                                                                          @typescript-eslint/no-unused-vars
+   46:3   warning  'onShowTools' is defined but never used                                                                                                                                                  @typescript-eslint/no-unused-vars
+   51:10  warning  'error' is assigned a value but never used                                                                                                                                               @typescript-eslint/no-unused-vars
+  175:9   warning  The 'handleSend' function makes the dependencies of useEffect Hook (at line 343) change on every render. To fix this, wrap the definition of 'handleSend' in its own useCallback() Hook  react-hooks/exhaustive-deps
+  538:3   warning  'isLast' is defined but never used                                                                                                                                                       @typescript-eslint/no-unused-vars
+
+C:\Users\ASUS\OneDrive\Desktop\AI ANALYST\frontend\src\components\ChatMessage.tsx
+   13:3   warning  'Sparkles' is defined but never used                      @typescript-eslint/no-unused-vars
+   26:68  warning  'streamingSteps' is assigned a value but never used       @typescript-eslint/no-unused-vars
+   27:10  warning  'expandedSections' is assigned a value but never used     @typescript-eslint/no-unused-vars
+   27:28  warning  'setExpandedSections' is assigned a value but never used  @typescript-eslint/no-unused-vars
+   46:9   warning  'mergedSections' is assigned a value but never used       @typescript-eslint/no-unused-vars
+  161:10  warning  'AnalysisStep' is defined but never used                  @typescript-eslint/no-unused-vars
+
+C:\Users\ASUS\OneDrive\Desktop\AI ANALYST\frontend\src\components\CommandPalette.tsx
+   21:3   warning  'X' is defined but never used                                                                                @typescript-eslint/no-unused-vars
+  117:13  warning  Image elements must have an alt prop, either with meaningful text, or an empty string for decorative images  jsx-a11y/alt-text
+  126:13  warning  Image elements must have an alt prop, either with meaningful text, or an empty string for decorative images  jsx-a11y/alt-text
+
+C:\Users\ASUS\OneDrive\Desktop\AI ANALYST\frontend\src\components\DDRUpload.tsx
+  8:32  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+C:\Users\ASUS\OneDrive\Desktop\AI ANALYST\frontend\src\components\DataPreview.tsx
+   16:3   warning  'Search' is defined but never used                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           @typescript-eslint/no-unused-vars
+   18:3   warning  'LayoutGrid' is defined but never used                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       @typescript-eslint/no-unused-vars
+   24:3   warning  'Hash' is defined but never used                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             @typescript-eslint/no-unused-vars
+   25:3   warning  'DollarSign' is defined but never used                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       @typescript-eslint/no-unused-vars
+   26:3   warning  'Users' is defined but never used                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            @typescript-eslint/no-unused-vars
+   27:3   warning  'Timer' is defined but never used                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            @typescript-eslint/no-unused-vars
+   28:3   warning  'Award' is defined but never used                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            @typescript-eslint/no-unused-vars
+   57:3   warning  'compact' is assigned a value but never used                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 @typescript-eslint/no-unused-vars
+   72:11  warning  'isNewCharts' is assigned a value but never used                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             @typescript-eslint/no-unused-vars
+   76:7   error    Error: Calling setState synchronously within an effect can trigger cascading renders
+
+Effects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:
+* Update external systems with the latest state from React.
+* Subscribe for updates from some external system, calling setState in a callback function when external state changes.
+
+Calling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).
+
+C:\Users\ASUS\OneDrive\Desktop\AI ANALYST\frontend\src\components\DataPreview.tsx:76:7
+  74 |
+  75 |     if (isNewDefaultTab && defaultTab) {
+> 76 |       setActiveTab(defaultTab);
+     |       ^^^^^^^^^^^^ Avoid calling setState() directly within an effect
+  77 |     } else if (isNewReport) {
+  78 |       setActiveTab("report");
+  79 |     }  react-hooks/set-state-in-effect
+  215:29  warning  'colType' is assigned a value but never used                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 @typescript-eslint/no-unused-vars
+
+C:\Users\ASUS\OneDrive\Desktop\AI ANALYST\frontend\src\components\FileUpload.tsx
+  5:45  warning  'Sparkles' is defined but never used  @typescript-eslint/no-unused-vars
+
+C:\Users\ASUS\OneDrive\Desktop\AI ANALYST\frontend\src\components\PDFImageViewer.tsx
+   70:15  warning  Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+  110:15  warning  Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+
+C:\Users\ASUS\OneDrive\Desktop\AI ANALYST\frontend\src\components\PlotlyChart.tsx
+  449:3  warning  '_item' is defined but never used     @typescript-eslint/no-unused-vars
+  450:3  warning  '_index' is defined but never used    @typescript-eslint/no-unused-vars
+  451:3  warning  '_payload' is defined but never used  @typescript-eslint/no-unused-vars
+
+C:\Users\ASUS\OneDrive\Desktop\AI ANALYST\frontend\src\components\ReportPanel.tsx
+   16:3   warning  'Clock' is defined but never used         @typescript-eslint/no-unused-vars
+  386:27  error    Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+C:\Users\ASUS\OneDrive\Desktop\AI ANALYST\frontend\src\components\Sidebar.tsx
+  80:3  warning  'onSelectSession' is defined but never used  @typescript-eslint/no-unused-vars
+  86:3  warning  'onShowPricing' is defined but never used    @typescript-eslint/no-unused-vars
+  94:9  warning  'router' is assigned a value but never used  @typescript-eslint/no-unused-vars
+
+C:\Users\ASUS\OneDrive\Desktop\AI ANALYST\frontend\src\components\TopBar.tsx
+  3:43  warning  'PanelLeftClose' is defined but never used  @typescript-eslint/no-unused-vars
+
+Γ£û 56 problems (3 errors, 53 warnings)
+

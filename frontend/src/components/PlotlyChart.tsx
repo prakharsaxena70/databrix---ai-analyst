@@ -230,7 +230,7 @@ function renderChart(chart: ParsedChart) {
               <LabelList
                 dataKey={series.key}
                 position="right"
-                formatter={(value: number) => formatTooltipValue(value)}
+                formatter={(label) => formatLabelListText(label)}
                 style={axisLabelStyle}
               />
             )}
@@ -314,7 +314,7 @@ function renderChart(chart: ParsedChart) {
             <LabelList
               dataKey={series.key}
               position="top"
-              formatter={(value: number) => formatTooltipValue(value)}
+              formatter={(label) => formatLabelListText(label)}
               style={axisLabelStyle}
             />
           )}
@@ -436,13 +436,28 @@ function formatAxisValue(value: string | number) {
   return value.toLocaleString();
 }
 
-function formatTooltipValue(value: string | number) {
-  if (typeof value !== "number") return value;
+function formatTooltipValue(value: string | number | undefined | null) {
+  if (value == null) return "";
+  if (typeof value !== "number") return String(value);
   return value.toLocaleString(undefined, { maximumFractionDigits: 2 });
 }
 
-function tooltipFormatter(value: string | number, name: string) {
-  return [formatTooltipValue(value), name];
+/** Recharts `Tooltip` formatter: `value` may be an array for ranged data; `name` may be numeric. */
+function tooltipFormatter(
+  value: number | string | readonly (string | number)[] | undefined,
+  name: string | number | undefined,
+  _item?: unknown,
+  _index?: number,
+  _payload?: unknown
+): [string, string] {
+  const raw = Array.isArray(value) ? value.map(String).join(", ") : value;
+  const nameStr = name === undefined || name === null ? "" : String(name);
+  return [formatTooltipValue(raw as string | number | undefined), nameStr];
+}
+
+function formatLabelListText(label: string | number | boolean | null | undefined) {
+  if (label == null || typeof label === "boolean") return "";
+  return formatTooltipValue(label);
 }
 
 function sanitizeFileName(value: string) {

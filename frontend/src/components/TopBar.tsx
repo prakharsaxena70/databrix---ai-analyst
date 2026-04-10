@@ -1,6 +1,6 @@
 "use client";
 
-import { Upload, Download, PanelLeftOpen, PanelLeftClose } from "lucide-react";
+import { Upload, Download, PanelLeftOpen } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 interface TopBarProps {

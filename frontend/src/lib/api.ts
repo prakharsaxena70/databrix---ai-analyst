@@ -1,4 +1,12 @@
-import { UploadResponse, ChatResponse, SessionData, AuthResponse, AuthCheckResponse, User } from "./types";
+import {
+  UploadResponse,
+  ChatResponse,
+  SessionData,
+  AuthResponse,
+  AuthCheckResponse,
+  User,
+  ReportData,
+} from "./types";
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000";
 
@@ -181,11 +189,22 @@ export async function sendMessage(
   });
 }
 
+export type ChatStreamProcessingStep = { id: string; label: string; status: string };
+
+/** Discriminated union so `switch (chunk.type)` narrows fields correctly (avoids `never` on `report` / `steps`). */
+export type ChatStreamChunk =
+  | { type: "step"; content?: string }
+  | { type: "steps"; steps?: ChatStreamProcessingStep[] }
+  | { type: "section"; section?: string; content?: string }
+  | { type: "charts"; count?: number }
+  | { type: "complete"; text?: string; charts?: string[]; code?: string; report?: ReportData | null }
+  | { type: "error"; content?: string };
+
 // Streaming chat for real-time updates
 export async function sendMessageStream(
   sessionId: string,
   question: string,
-  onChunk: (chunk: { type: string; content?: string; section?: string; count?: number; text?: string; charts?: string[]; code?: string; report?: any }) => void
+  onChunk: (chunk: ChatStreamChunk) => void
 ): Promise<void> {
   const token = getToken() || "guest-token";
   const headers: Record<string, string> = {
@@ -228,7 +247,7 @@ export async function sendMessageStream(
     for (const part of parts) {
       if (part.startsWith('data: ')) {
         try {
-          const data = JSON.parse(part.slice(6));
+          const data = JSON.parse(part.slice(6)) as ChatStreamChunk;
           onChunk(data);
         } catch (e) {
           console.error('Failed to parse stream chunk:', e);
@@ -503,13 +522,27 @@ export async function generateSQL(file: File, tableName: string = "data_table"):
   return res.blob();
 }
 
-export async function listTools(): Promise<{ tools: any[] }> {
-  return apiFetch<{ tools: any[] }>("/tools/list");
+export async function listTools(): Promise<{ tools: { id: string; name: string; description: string; icon: string }[] }> {
+  return apiFetch<{ tools: { id: string; name: string; description: string; icon: string }[] }>("/tools/list");
 }
 
 // New AI Features
-export async function explainData(sessionId: string): Promise<{ summary: string; report?: any; charts?: any[]; shape: string; columns: number; rows: number }> {
-  return apiFetch<{ summary: string; report?: any; charts?: any[]; shape: string; columns: number; rows: number }>(`/api/explain-data/${sessionId}`, {
+export async function explainData(sessionId: string): Promise<{ 
+  summary: string; 
+  report?: ReportData | null; 
+  charts?: string[]; 
+  shape: string; 
+  columns: number; 
+  rows: number 
+}> {
+  return apiFetch<{ 
+    summary: string; 
+    report?: ReportData | null; 
+    charts?: string[]; 
+    shape: string; 
+    columns: number; 
+    rows: number 
+  }>(`/api/explain-data/${sessionId}`, {
     method: "POST",
   });
 }

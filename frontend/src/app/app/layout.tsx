@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect } from "react";
 import { useRouter, usePathname } from "next/navigation";
 import Sidebar from "@/components/Sidebar";
 import CommandPalette from "@/components/CommandPalette";
@@ -99,13 +99,11 @@ export default function AppLayout({
       <Sidebar
         sessions={sessions}
         activeSessionId={activeSessionId}
-        onSelectSession={handleSelectSession}
         onUpdateSession={handleUpdateSession}
         onDeleteSession={handleDeleteSession}
         onNewChat={handleNewChat}
         isOpen={sidebarOpen}
         onToggle={() => setSidebarOpen(!sidebarOpen)}
-        onShowPricing={() => {}}
         onShowTools={() => router.push("/app/tools")}
         onShowDataSources={() => router.push("/app/data-sources")}
         user={user}

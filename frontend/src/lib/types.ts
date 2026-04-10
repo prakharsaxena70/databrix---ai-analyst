@@ -45,7 +45,7 @@ export interface ReportData {
   description?: string;
   table_title?: string;
   columns?: string[];
-  rows?: Record<string, any>[];
+  rows?: Record<string, string | number | boolean | null>[];
   metrics?: Array<{ label: string; value: string; icon?: "hash" | "dollar" | "chart" | "user" | "clock" | "star" }>;
   kpis?: Array<{ label: string; value: string }>;
   visuals?: Array<{ title: string; description: string; chart_index: number }>;

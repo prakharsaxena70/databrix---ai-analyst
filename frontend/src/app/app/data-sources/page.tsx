@@ -18,8 +18,6 @@ import {
   Clock,
   Rows3,
   Columns3,
-  Star,
-  MoreVertical,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";

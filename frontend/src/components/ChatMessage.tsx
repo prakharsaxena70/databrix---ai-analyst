@@ -7,23 +7,11 @@ import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import { 
   CheckCircle2,
-  BarChart3,
   FileText,
   ChevronDown,
-  ChevronUp,
-  AlertTriangle,
-  TrendingUp,
-  PieChart,
-  Activity,
   Target,
-  Lightbulb,
-  Medal,
-  Crown,
   Sparkles,
-  Maximize2,
   Download,
-  X,
-  Loader2,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -174,13 +162,16 @@ function AnalysisStep({ step, index, isStreaming = false }: { step: string; inde
   const [isVisible, setIsVisible] = useState(isStreaming);
   
   useEffect(() => {
-    if (isStreaming) {
-      setIsVisible(true);
-    } else {
+    if (!isStreaming) {
       const timer = setTimeout(() => setIsVisible(true), index * 400);
       return () => clearTimeout(timer);
     }
   }, [index, isStreaming]);
+
+  // If streaming, visible should start as true without needing an effect
+  if (isStreaming && !isVisible) {
+    setIsVisible(true);
+  }
 
   return (
     <div 
@@ -225,7 +216,7 @@ function LoadingAnimation() {
       setStep(prev => (prev + 1) % steps.length);
     }, 1500);
     return () => clearInterval(interval);
-  }, []);
+  }, [steps.length]);
 
   return (
     <div className="flex items-center gap-3 py-3">
@@ -338,7 +329,7 @@ function parseMessageContent(content: string) {
 }
 
 // Markdown components with black text
-const MarkdownComponents: any = {
+const MarkdownComponents: Record<string, React.FC<{ children: React.ReactNode }>> = {
   strong: ({ children }: { children: React.ReactNode }) => (
     <strong className="font-bold text-black">{children}</strong>
   ),
@@ -366,7 +357,7 @@ const MarkdownComponents: any = {
 };
 
 // Inline Chart Thumbnail Component - Clean Design
-function InlineChartThumbnail({ chart, title }: { chart: any; title: string }) {
+function InlineChartThumbnail({ chart, title }: { chart: string; title: string }) {
   const handleDownloadPNG = () => {
     downloadChartPayload(chart, title);
   };

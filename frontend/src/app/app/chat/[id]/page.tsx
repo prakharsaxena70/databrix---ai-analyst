@@ -6,7 +6,7 @@ import ChatInterface from "@/components/ChatInterface";
 import PDFImageViewer from "@/components/PDFImageViewer";
 import DataPreviewComponent from "@/components/DataPreview";
 import { getSession, uploadFile } from "@/lib/api";
-import { ChatMessage, DataPreview, PDFData } from "@/lib/types";
+import { ChatMessage, DataPreview, PDFData, ReportData } from "@/lib/types";
 import { Loader2, FileImage } from "lucide-react";
 
 
@@ -22,8 +22,8 @@ export default function ChatPage() {
   const [error, setError] = useState<string | null>(null);
   const [reportKey, setReportKey] = useState(0); // Used to trigger report view refresh
   const [autoOpenReport, setAutoOpenReport] = useState(false); // Track if we should auto-open report tab
-  const [generatedReport, setGeneratedReport] = useState<any | null>(null);
-  const [generatedCharts, setGeneratedCharts] = useState<any[]>([]);
+  const [generatedReport, setGeneratedReport] = useState<ReportData | null>(null);
+  const [generatedCharts, setGeneratedCharts] = useState<string[]>([]);
 
   // Load session data when page loads
   useEffect(() => {
@@ -87,7 +87,7 @@ export default function ChatPage() {
     }
   }, [messages]);
 
-  const handleGenerateReport = (payload?: { report?: any | null; charts?: any[] }) => {
+  const handleGenerateReport = (payload?: { report?: ReportData | null; charts?: string[] }) => {
     if (payload?.report) {
       setGeneratedReport(payload.report);
     }

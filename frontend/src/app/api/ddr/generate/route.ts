@@ -66,7 +66,7 @@ async function extractTextFromPDF(buffer: Buffer): Promise<string> {
     const text = buffer.toString("utf-8");
     const cleanText = text.replace(/[^\x20-\x7E\n\r\t]/g, " ");
     return cleanText.length > 100 ? cleanText : "PDF text extraction requires additional libraries";
-  } catch (error) {
+  } catch {
     return "Error extracting PDF text";
   }
 }
@@ -74,7 +74,7 @@ async function extractTextFromPDF(buffer: Buffer): Promise<string> {
 async function generateDDR(
   inspectionText: string,
   thermalText: string
-): Promise<any> {
+): Promise<Record<string, unknown>> {
   const model = genAI.getGenerativeModel({ model: "gemini-pro" });
 
   const prompt = `You are an expert building diagnostics analyst for UrbanRoof.

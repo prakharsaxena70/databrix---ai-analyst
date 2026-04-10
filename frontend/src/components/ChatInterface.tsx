@@ -2,7 +2,7 @@
 
 import { useState, useRef, useEffect, useCallback } from "react";
 import { ChatMessageComponent, ChatLoadingSkeleton, TypingIndicator } from "./ChatMessage";
-import { ChatMessage } from "@/lib/types";
+import { ChatMessage, ReportData } from "@/lib/types";
 import { sendMessageStream, enhancePrompt, explainData } from "@/lib/api";
 import {
   Paperclip,
@@ -24,11 +24,11 @@ interface ChatInterfaceProps {
   sessionId: string;
   messages: ChatMessage[];
   onNewMessage: (message: ChatMessage) => void;
-  onGenerateReport: (payload?: { report?: any | null; charts?: any[] }) => void;
+  onGenerateReport: (payload?: { report?: ReportData | null; charts?: string[] }) => void;
   isThinking?: boolean;
   onFileSelect: (file: File) => void;
   onRemoveFile: () => void;
-  currentFile: { filename: string; preview: any } | null;
+  currentFile: { filename: string; preview: { shape: { rows: number; columns: number } } } | null;
   isUploading: boolean;
   onShowTools?: () => void;
 }
@@ -213,7 +213,9 @@ export default function ChatInterface({
       let finalText = "";
       let finalCharts: string[] = [];
       let finalCode = "";
-      let finalReport = null;
+      // Holder: TS does not track `let` reassignment inside the stream callback after `await`, which
+      // incorrectly narrows `finalReport` to `never` when building `ChatMessage`.
+      const streamReport: { current: ReportData | null } = { current: null };
 
       await sendMessageStream(sessionId, q, (chunk) => {
         console.log("Stream chunk received:", chunk.type);
@@ -249,15 +251,15 @@ export default function ChatInterface({
             finalText = chunk.text || "";
             finalCharts = chunk.charts || [];
             finalCode = chunk.code || "";
-            finalReport = chunk.report || null;
-            
+            streamReport.current = chunk.report ?? null;
+
             console.log("[ChatInterface] Complete chunk received:", {
               textLength: finalText?.length,
               chartsCount: finalCharts?.length,
-              hasReport: !!finalReport,
-              reportTitle: finalReport?.title,
-              reportKpisCount: finalReport?.kpis?.length,
-              reportSummaryLength: finalReport?.summary?.length
+              hasReport: !!streamReport.current,
+              reportTitle: streamReport.current?.title,
+              reportKpisCount: streamReport.current?.kpis?.length,
+              reportSummaryLength: streamReport.current?.summary?.length,
             });
             
             setStreamingContent((prev) => ({
@@ -271,7 +273,7 @@ export default function ChatInterface({
         }
       });
 
-      // Create final message
+      const finalReport = streamReport.current;
       const assistantMsg: ChatMessage = {
         role: "assistant",
         content: finalText,
@@ -284,7 +286,7 @@ export default function ChatInterface({
         hasCharts: finalCharts.length > 0,
         hasReport: !!finalReport,
         reportTitle: finalReport?.title,
-        chartsCount: finalCharts.length
+        chartsCount: finalCharts.length,
       });
       onNewMessage(assistantMsg);
       // Silent background report refresh after every successful AI reply.
@@ -338,7 +340,7 @@ export default function ChatInterface({
         handleSend(q, { showUserBubble: false });
       }
     }
-  }, [messages.length, isLoading]);
+  }, [messages.length, isLoading, handleSend]);
 
   // Show empty state
   const showEmptyState = messages.length === 0 && !isLoading;

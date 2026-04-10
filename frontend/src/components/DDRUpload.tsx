@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { FileText, Upload, Loader2, FileImage } from "lucide-react";
 
 interface DDRUploadProps {
-  onReportGenerated?: (report: any) => void;
+  onReportGenerated?: (report: Record<string, unknown>) => void;
 }
 
 export default function DDRUpload({ onReportGenerated }: DDRUploadProps) {
