@@ -27,12 +27,25 @@ from plotly.utils import PlotlyJSONEncoder
 
 load_dotenv()
 
+# ── CORS (explicit origins required when allow_credentials=True) ───────────────
+CORS_ALLOW_ORIGINS = [
+    "http://localhost:3000",
+    "http://127.0.0.1:3000",
+    "https://databrix.vercel.app",
+]
+_extra = os.getenv("CORS_ALLOW_ORIGINS", "").strip()
+if _extra:
+    for part in _extra.split(","):
+        o = part.strip()
+        if o and o not in CORS_ALLOW_ORIGINS:
+            CORS_ALLOW_ORIGINS.append(o)
+
 # ── App ────────────────────────────────────────────────────────────────────────
 app = FastAPI(title="DataBrix API", version="1.0.0")
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
+    allow_origins=CORS_ALLOW_ORIGINS,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
