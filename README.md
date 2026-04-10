@@ -54,6 +54,12 @@ Open [http://localhost:3000](http://localhost:3000)
 
 ---
 
+## Deploy (Render)
+
+Render’s default Python is **3.14.x**, which often forces a **source build of pandas** and can fail. This repo pins **Python 3.12** via `.python-version` at the repo root and under `backend/` (use the one that matches your service **Root Directory**). Alternatively set the Render env var **`PYTHON_VERSION`** to a full version such as `3.12.8`.
+
+---
+
 ## Environment Variables
 
 | Variable | Required | Description |
